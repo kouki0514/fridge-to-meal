@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Orange rounded background -->
+  <rect width="512" height="512" rx="112" fill="#f97316"/>
+  <!-- Subtle inner gradient overlay -->
+  <rect width="512" height="512" rx="112" fill="url(#grad)" opacity="0.25"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+  </defs>
+  <!-- Cooking pot icon (white) -->
+  <!-- Pot body -->
+  <rect x="136" y="220" width="240" height="168" rx="24" fill="white"/>
+  <!-- Pot rim -->
+  <rect x="116" y="200" width="280" height="32" rx="16" fill="white"/>
+  <!-- Left handle -->
+  <rect x="88" y="208" width="48" height="24" rx="12" fill="white"/>
+  <!-- Right handle -->
+  <rect x="376" y="208" width="48" height="24" rx="12" fill="white"/>
+  <!-- Lid -->
+  <rect x="148" y="172" width="216" height="32" rx="16" fill="white"/>
+  <!-- Lid knob -->
+  <rect x="236" y="148" width="40" height="28" rx="12" fill="white"/>
+  <!-- Steam lines -->
+  <path d="M196 148 C196 128 212 128 212 108 C212 88 196 88 196 68" stroke="white" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M256 148 C256 128 272 128 272 108 C272 88 256 88 256 68" stroke="white" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M316 148 C316 128 332 128 332 108 C332 88 316 88 316 68" stroke="white" stroke-width="10" stroke-linecap="round" fill="none"/>
+</svg>
