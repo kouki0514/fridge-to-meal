@@ -91,14 +91,18 @@ export default async function handler(req, res) {
 
   // 4. Call Claude — ANTHROPIC_API_KEY stays on the server, never sent to client
   try {
-    const stream = client.messages.stream({
-      model: 'claude-opus-4-6',
+    const message = await client.messages.create({
+      model: 'claude-haiku-4-5',
       max_tokens: 2048,
       system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: buildUserPrompt(sanitized) }],
+      messages: [
+        {
+          role: 'user',
+          content: [{ type: 'text', text: buildUserPrompt(sanitized) }],
+        },
+      ],
     })
 
-    const message = await stream.finalMessage()
     const rawText = message.content[0]?.text ?? ''
 
     const jsonMatch = rawText.match(/\{[\s\S]*\}/)
