@@ -1,0 +1,273 @@
+/* ── Section header ─────────────────────────────── */
+.suggestions {
+  animation: fade-up 0.4s ease-out;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.suggestions-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.suggestions-title {
+  font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.suggestions-count {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: white;
+  background: var(--orange);
+  border-radius: 20px;
+  padding: 2px 9px;
+}
+
+/* ── Responsive grid ────────────────────────────── */
+.meal-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+/* 2 columns when cards can fit comfortably */
+@media (min-width: 700px) {
+  .meal-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* ── Card ───────────────────────────────────────── */
+.meal-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: card-in 0.35s ease-out both;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.meal-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Card header ────────────────────────────────── */
+.meal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: clamp(14px, 3vw, 20px) clamp(14px, 3vw, 20px) 0;
+}
+
+.meal-icon {
+  font-size: clamp(2.2rem, 6vw, 2.8rem);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.meal-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.meal-badges {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-time {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.meal-name {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  /* prevent very long names from overflowing */
+  overflow-wrap: break-word;
+}
+
+/* ── Description ────────────────────────────────── */
+.meal-description {
+  padding: 9px clamp(14px, 3vw, 20px) 0;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── Body ───────────────────────────────────────── */
+.meal-body {
+  padding: clamp(12px, 2.5vw, 16px) clamp(14px, 3vw, 20px) clamp(14px, 3vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.meal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* shared base for label + toggle button */
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* toggle variant – button reset */
+.section-label--toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  border-radius: 4px;
+  /* keep touch target comfortable */
+  min-height: 28px;
+}
+
+.section-label--toggle:hover,
+.section-label--toggle:focus-visible {
+  color: var(--orange);
+  outline: none;
+}
+
+.toggle-chevron {
+  margin-left: auto;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.toggle-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* ── Step list (collapsed by default on mobile) ─── */
+.step-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  /* Collapsed: hidden via max-height animation */
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+.step-list--open {
+  /* large enough for any content */
+  max-height: 1200px;
+  opacity: 1;
+}
+
+/* On larger screens steps are always visible */
+@media (min-width: 700px) {
+  .step-list {
+    max-height: none;
+    opacity: 1;
+  }
+
+  .toggle-chevron {
+    display: none;
+  }
+
+  .section-label--toggle {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.step-item {
+  display: flex;
+  gap: 9px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  align-items: flex-start;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 21px;
+  height: 21px;
+  background: var(--orange);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3px;
+}
+
+/* ── Ingredients ────────────────────────────────── */
+.ingredient-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.83rem;
+  color: var(--text);
+}
+
+.ingredient-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+}

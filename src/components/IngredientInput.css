@@ -1,0 +1,254 @@
+.input-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: clamp(18px, 4vw, 28px);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.input-title {
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
+  font-weight: 700;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.input-hint {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+/* ── Tag input box ──────────────────────────────── */
+.tag-input {
+  min-height: var(--tap-min);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 7px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  cursor: text;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: #fafafa;
+}
+
+.tag-input:focus-within {
+  border-color: var(--orange);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--orange-light);
+  color: var(--orange-dark);
+  border-radius: 20px;
+  padding: 4px 10px 4px 12px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  animation: tag-in 0.15s ease-out;
+}
+
+@keyframes tag-in {
+  from { transform: scale(0.75); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.tag-remove {
+  background: none;
+  color: var(--orange-dark);
+  font-size: 1.05rem;
+  line-height: 1;
+  /* ensure min tap area without affecting layout */
+  padding: 4px 3px;
+  opacity: 0.55;
+  transition: opacity 0.1s;
+  display: flex;
+  align-items: center;
+  min-width: 22px;
+  min-height: 22px;
+  justify-content: center;
+}
+
+.tag-remove:hover,
+.tag-remove:focus-visible {
+  opacity: 1;
+}
+
+.tag-text-input {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 0.95rem;
+  /* clamp so it never forces horizontal scroll on small phones */
+  min-width: clamp(80px, 25vw, 160px);
+  flex: 1;
+  color: var(--text);
+  padding: 4px 0;
+}
+
+.tag-text-input::placeholder {
+  color: #adb5bd;
+}
+
+/* ── Preset categories ──────────────────────────── */
+.presets {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preset-cat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.preset-cat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+.preset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.preset-btn {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+  min-height: var(--tap-min);
+  /* shrink tap area visually but keep touch target */
+  min-height: 32px;
+  line-height: 1;
+}
+
+.preset-btn:hover,
+.preset-btn:focus-visible {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: #fff7ed;
+}
+
+.preset-btn--more {
+  color: var(--orange);
+  border-color: var(--orange-light);
+  background: #fff7ed;
+  font-weight: 600;
+}
+
+.preset-btn--more:hover,
+.preset-btn--more:focus-visible {
+  background: var(--orange-light);
+}
+
+/* ── Submit row ─────────────────────────────────── */
+.submit-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.clear-btn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  height: var(--tap-min);
+  transition: border-color 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+
+.clear-btn:hover,
+.clear-btn:focus-visible {
+  border-color: #d1d5db;
+  color: var(--text);
+}
+
+.suggest-btn {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  border-radius: 10px;
+  padding: 0 28px;
+  height: var(--tap-min);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+
+.suggest-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+}
+
+.suggest-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.suggest-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Mobile (≤ 480px) ───────────────────────────── */
+@media (max-width: 480px) {
+  .submit-row {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .suggest-btn {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  .clear-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
