@@ -9,7 +9,7 @@ const DIFFICULTY_STYLE = {
 
 const MEAL_ICONS = ['🍜', '🍱', '🥘', '🍛', '🍲', '🥗', '🍝']
 
-export default function MealSuggestions({ meals }) {
+export default function MealSuggestions({ meals, onSaveMeal, onUnsaveMeal, isSaved, getSavedId }) {
   return (
     <section className="suggestions" aria-label="献立の提案">
       <div className="suggestions-header">
@@ -26,6 +26,9 @@ export default function MealSuggestions({ meals }) {
             meal={meal}
             icon={MEAL_ICONS[i % MEAL_ICONS.length]}
             index={i}
+            saved={isSaved(meal.name)}
+            onSave={() => onSaveMeal(meal)}
+            onUnsave={() => onUnsaveMeal(getSavedId(meal.name))}
           />
         ))}
       </div>
@@ -33,9 +36,20 @@ export default function MealSuggestions({ meals }) {
   )
 }
 
-function MealCard({ meal, icon, index }) {
+function MealCard({ meal, icon, index, saved, onSave, onUnsave }) {
   const [stepsOpen, setStepsOpen] = useState(false)
+  const [justSaved, setJustSaved] = useState(false)
   const diff = DIFFICULTY_STYLE[meal.difficulty] ?? DIFFICULTY_STYLE['普通']
+
+  function handleFavClick() {
+    if (saved) {
+      onUnsave()
+    } else {
+      onSave()
+      setJustSaved(true)
+      setTimeout(() => setJustSaved(false), 1200)
+    }
+  }
 
   return (
     <article
@@ -57,6 +71,16 @@ function MealCard({ meal, icon, index }) {
           </div>
           <h3 className="meal-name">{meal.name}</h3>
         </div>
+
+        <button
+          type="button"
+          className={`fav-btn${saved ? ' fav-btn--active' : ''}${justSaved ? ' fav-btn--pulse' : ''}`}
+          onClick={handleFavClick}
+          aria-label={saved ? 'お気に入りから削除' : 'お気に入りに保存'}
+          title={saved ? 'お気に入りから削除' : '保存'}
+        >
+          {saved ? '♥' : '♡'}
+        </button>
       </div>
 
       {/* ── Description ── */}

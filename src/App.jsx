@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import IngredientInput from './components/IngredientInput.jsx'
 import MealSuggestions from './components/MealSuggestions.jsx'
+import FavoritesList from './components/FavoritesList.jsx'
+import { useFavorites } from './hooks/useFavorites.js'
 import './App.css'
 
 export default function App() {
   const [meals, setMeals] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [activeTab, setActiveTab] = useState('suggest')
+
+  const { favorites, addFavorite, removeFavorite, isFavorite, getFavoriteId } = useFavorites()
 
   async function handleSuggest(ingredients) {
     setLoading(true)
@@ -49,24 +54,63 @@ export default function App() {
       </header>
 
       <main className="main">
-        <IngredientInput onSuggest={handleSuggest} loading={loading} />
+        {/* ── Tab navigation ── */}
+        <div className="tabs" role="tablist">
+          <button
+            role="tab"
+            aria-selected={activeTab === 'suggest'}
+            className={`tab${activeTab === 'suggest' ? ' tab--active' : ''}`}
+            onClick={() => setActiveTab('suggest')}
+          >
+            🍳 献立提案
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'favorites'}
+            className={`tab${activeTab === 'favorites' ? ' tab--active' : ''}`}
+            onClick={() => setActiveTab('favorites')}
+          >
+            ♥ お気に入り
+            {favorites.length > 0 && (
+              <span className="tab-badge">{favorites.length}</span>
+            )}
+          </button>
+        </div>
 
-        {error && (
-          <div className="error-box">
-            <span className="error-icon">⚠️</span>
-            {error}
-          </div>
+        {/* ── Suggest tab ── */}
+        {activeTab === 'suggest' && (
+          <>
+            <IngredientInput onSuggest={handleSuggest} loading={loading} />
+
+            {error && (
+              <div className="error-box">
+                <span className="error-icon">⚠️</span>
+                {error}
+              </div>
+            )}
+
+            {loading && (
+              <div className="loading">
+                <div className="loading-spinner" />
+                <p className="loading-text">AIが献立を考えています...</p>
+              </div>
+            )}
+
+            {meals && !loading && (
+              <MealSuggestions
+                meals={meals}
+                onSaveMeal={addFavorite}
+                onUnsaveMeal={removeFavorite}
+                isSaved={isFavorite}
+                getSavedId={getFavoriteId}
+              />
+            )}
+          </>
         )}
 
-        {loading && (
-          <div className="loading">
-            <div className="loading-spinner" />
-            <p className="loading-text">AIが献立を考えています...</p>
-          </div>
-        )}
-
-        {meals && !loading && (
-          <MealSuggestions meals={meals} />
+        {/* ── Favorites tab ── */}
+        {activeTab === 'favorites' && (
+          <FavoritesList favorites={favorites} onRemove={removeFavorite} />
         )}
       </main>
 

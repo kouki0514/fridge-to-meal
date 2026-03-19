@@ -1,54 +1,80 @@
+.fav-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 60px 16px;
+  text-align: center;
+}
+
+.fav-empty-icon {
+  font-size: 3rem;
+  color: #e5e7eb;
+  line-height: 1;
+}
+
+.fav-empty-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.fav-empty-hint {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
 /* ── Section header ─────────────────────────────── */
-.suggestions {
-  animation: fade-up 0.4s ease-out;
+.fav-section {
+  animation: fade-up 0.35s ease-out;
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.suggestions-header {
+.fav-header {
   display: flex;
   align-items: baseline;
   gap: 10px;
   margin-bottom: 18px;
 }
 
-.suggestions-title {
+.fav-title {
   font-size: clamp(1.1rem, 3.5vw, 1.3rem);
   font-weight: 700;
   display: flex;
   align-items: center;
   gap: 7px;
+  color: #e11d48;
 }
 
-.suggestions-count {
+.fav-count {
   font-size: 0.82rem;
   font-weight: 600;
   color: white;
-  background: var(--orange);
+  background: #e11d48;
   border-radius: 20px;
   padding: 2px 9px;
 }
 
-/* ── Responsive grid ────────────────────────────── */
-.meal-grid {
+/* ── Grid ───────────────────────────────────────── */
+.fav-grid {
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr;
 }
 
-/* 2 columns when cards can fit comfortably */
 @media (min-width: 700px) {
-  .meal-grid {
+  .fav-grid {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
   }
 }
 
 /* ── Card ───────────────────────────────────────── */
-.meal-card {
+.fav-card {
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -56,40 +82,27 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  animation: card-in 0.35s ease-out both;
-  transition: box-shadow 0.2s, transform 0.2s;
 }
 
-.meal-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-
-@keyframes card-in {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Card header ────────────────────────────────── */
-.meal-header {
+.fav-card-header {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: clamp(14px, 3vw, 20px) clamp(14px, 3vw, 20px) 0;
 }
 
-.meal-icon {
+.fav-card-icon {
   font-size: clamp(2.2rem, 6vw, 2.8rem);
   line-height: 1;
   flex-shrink: 0;
 }
 
-.meal-meta {
+.fav-card-meta {
   flex: 1;
   min-width: 0;
 }
 
-.meal-badges {
+.fav-card-badges {
   display: flex;
   gap: 5px;
   margin-bottom: 5px;
@@ -109,74 +122,53 @@
   color: #0284c7;
 }
 
-.meal-name {
-  font-size: clamp(1rem, 3vw, 1.2rem);
+.fav-card-name {
+  font-size: clamp(1rem, 3vw, 1.15rem);
   font-weight: 700;
   line-height: 1.3;
   color: var(--text);
-  /* prevent very long names from overflowing */
   overflow-wrap: break-word;
 }
 
-/* ── Favorite button ────────────────────────────── */
-.fav-btn {
+.fav-card-date {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin-top: 3px;
+}
+
+.fav-delete-btn {
   flex-shrink: 0;
   background: none;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 1.15rem;
+  border: 1.5px solid #fecaca;
+  color: #f87171;
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: 0.95rem;
   line-height: 1;
-  color: #d1d5db;
+  transition: background 0.12s, border-color 0.12s;
+  min-height: 34px;
+  min-width: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.15s;
   margin-top: 2px;
-  cursor: pointer;
 }
 
-.fav-btn:hover,
-.fav-btn:focus-visible {
-  border-color: #fda4af;
-  color: #fb7185;
-  background: #fff1f2;
-  outline: none;
-}
-
-.fav-btn--active {
-  color: #e11d48;
-  border-color: #fda4af;
-  background: #fff1f2;
-}
-
-.fav-btn--active:hover,
-.fav-btn--active:focus-visible {
+.fav-delete-btn:hover,
+.fav-delete-btn:focus-visible {
   background: #fee2e2;
   border-color: #f87171;
 }
 
-@keyframes fav-pulse {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.35); }
-  100% { transform: scale(1); }
-}
-
-.fav-btn--pulse {
-  animation: fav-pulse 0.4s ease-out;
-}
-
-/* ── Description ────────────────────────────────── */
-.meal-description {
+.fav-card-desc {
   padding: 9px clamp(14px, 3vw, 20px) 0;
   font-size: 0.86rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
 
-/* ── Body ───────────────────────────────────────── */
-.meal-body {
+/* ── Card body ──────────────────────────────────── */
+.fav-card-body {
   padding: clamp(12px, 2.5vw, 16px) clamp(14px, 3vw, 20px) clamp(14px, 3vw, 20px);
   display: flex;
   flex-direction: column;
@@ -184,14 +176,13 @@
   flex: 1;
 }
 
-.meal-section {
+.fav-section-block {
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
 
-/* shared base for label + toggle button */
-.section-label {
+.fav-section-label {
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -202,8 +193,7 @@
   gap: 5px;
 }
 
-/* toggle variant – button reset */
-.section-label--toggle {
+.fav-section-label--toggle {
   background: none;
   border: none;
   padding: 0;
@@ -212,65 +202,52 @@
   text-align: left;
   font-family: inherit;
   border-radius: 4px;
-  /* keep touch target comfortable */
   min-height: 28px;
 }
 
-.section-label--toggle:hover,
-.section-label--toggle:focus-visible {
+.fav-section-label--toggle:hover,
+.fav-section-label--toggle:focus-visible {
   color: var(--orange);
   outline: none;
 }
 
-.toggle-chevron {
+.fav-chevron {
   margin-left: auto;
   font-size: 0.9rem;
   transition: transform 0.2s;
   display: inline-block;
 }
 
-.toggle-chevron--open {
+.fav-chevron--open {
   transform: rotate(180deg);
 }
 
-/* ── Step list (collapsed by default on mobile) ─── */
-.step-list {
+.fav-step-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 7px;
-
-  /* Collapsed: hidden via max-height animation */
   overflow: hidden;
   max-height: 0;
   opacity: 0;
   transition: max-height 0.3s ease, opacity 0.25s ease;
 }
 
-.step-list--open {
-  /* large enough for any content */
+.fav-step-list--open {
   max-height: 1200px;
   opacity: 1;
 }
 
-/* On larger screens steps are always visible */
 @media (min-width: 700px) {
-  .step-list {
+  .fav-step-list {
     max-height: none;
     opacity: 1;
   }
-
-  .toggle-chevron {
-    display: none;
-  }
-
-  .section-label--toggle {
-    cursor: default;
-    pointer-events: none;
-  }
+  .fav-chevron { display: none; }
+  .fav-section-label--toggle { cursor: default; pointer-events: none; }
 }
 
-.step-item {
+.fav-step-item {
   display: flex;
   gap: 9px;
   font-size: 0.88rem;
@@ -278,7 +255,7 @@
   align-items: flex-start;
 }
 
-.step-num {
+.fav-step-num {
   flex-shrink: 0;
   width: 21px;
   height: 21px;
@@ -293,15 +270,14 @@
   margin-top: 3px;
 }
 
-/* ── Ingredients ────────────────────────────────── */
-.ingredient-list {
+.fav-ingredient-list {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
 }
 
-.ingredient-item {
+.fav-ingredient-item {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -313,7 +289,7 @@
   color: var(--text);
 }
 
-.ingredient-dot {
+.fav-ingredient-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
